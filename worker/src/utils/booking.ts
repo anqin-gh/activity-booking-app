@@ -1,6 +1,7 @@
 import axios from 'axios';
 import FormData from 'form-data';
 import { parse, HTMLElement } from 'node-html-parser';
+import logger from './logger';
 
 export async function book(bookingUrl: string, cookie: string, activity: string) {
    const data = new FormData();
@@ -13,8 +14,8 @@ export async function book(bookingUrl: string, cookie: string, activity: string)
       },
    });
 
-   console.log(response.status);
-   console.log(response.data);
+   logger.info(response.status);
+   logger.info(response.data);
 }
 
 export interface Time {

@@ -1,6 +1,7 @@
 import login from './utils/login';
 import { book, Time, fetchActivityMatchingTime as findActivityMatchingTime } from './utils/booking';
 import config from 'config';
+import logger from './utils/logger';
 
 const loginURL: string = config.get('loginUrl');
 const baseUrl: string = config.get('baseUrl');
@@ -12,6 +13,8 @@ const daysOfYoga = config.get('daysOfYoga')! as Array<number>;
 
 (async function run() {
    try {
+      logger.info('Running application...');
+
       const cookie = await login(loginURL, email, password);
       if (!cookie) throw new Error('Could not login!');
 
@@ -20,7 +23,7 @@ const daysOfYoga = config.get('daysOfYoga')! as Array<number>;
 
       const day = afterTomorrow.getDate();
       if (!daysOfYoga.includes(day)) {
-         console.log(`Nothing to book for ${daysOfWeek[day]}`);
+         logger.info(`Nothing to book for ${daysOfWeek[day]}`);
          return;
       }
 
@@ -37,6 +40,6 @@ const daysOfYoga = config.get('daysOfYoga')! as Array<number>;
       if (activity) await book(bookingUrl, cookie, activity);
       else throw Error('Activity not found!');
    } catch (err) {
-      console.log(err);
+      logger.error(err.message, err);
    }
 })();
