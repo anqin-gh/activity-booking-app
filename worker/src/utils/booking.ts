@@ -3,17 +3,18 @@ import FormData from 'form-data';
 import { parse, HTMLElement } from 'node-html-parser';
 
 export async function book(bookingUrl: string, cookie: string, activity: string) {
-      const data = new FormData();
-      data.append('UniqueActivityCode', activity);
-      data.append('ContractConditions', 'true');
-      const response = await axios.post(bookingUrl, data, {
-         headers: {
-            Cookie: cookie,
-            ...data.getHeaders(),
-         },
-      });
-      console.log(response.status);
-      console.log(response.data);
+   const data = new FormData();
+   data.append('UniqueActivityCode', activity);
+   data.append('ContractConditions', 'true');
+   const response = await axios.post(bookingUrl, data, {
+      headers: {
+         Cookie: cookie,
+         ...data.getHeaders(),
+      },
+   });
+
+   console.log(response.status);
+   console.log(response.data);
 }
 
 export interface Time {
@@ -42,6 +43,7 @@ export async function fetchActivityMatchingTime(url: string, cookie: string, tim
          (btn) =>
             (<HTMLElement>btn.parentNode.parentNode.childNodes[0]).structuredText === time.hour
       );
+
    if (button) return button.rawAttributes['data-target'];
    return undefined;
 }

@@ -3,6 +3,8 @@ import { book, Time, fetchActivityMatchingTime as findActivityMatchingTime } fro
 import config from 'config';
 
 const loginURL: string = config.get('loginUrl');
+const baseUrl: string = config.get('baseUrl');
+const bookingUrl: string = config.get('bookingUrl');
 const email: string = config.get('email');
 const password: string = config.get('password');
 const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednsday', 'thursday', 'friday', 'saturday'];
@@ -16,13 +18,12 @@ const daysOfYoga = config.get('daysOfYoga')! as Array<number>;
       let afterTomorrow = new Date();
       afterTomorrow.setDate(new Date().getDate() + 2);
 
-      const today = afterTomorrow.getDay();
-      if (!daysOfYoga.includes(today)) {
-         console.log(`Nothing to book for ${daysOfWeek[today]}`);
+      const day = afterTomorrow.getDate();
+      if (!daysOfYoga.includes(day)) {
+         console.log(`Nothing to book for ${daysOfWeek[day]}`);
          return;
       }
 
-      const day = afterTomorrow.getDate();
       const [month, weekday] = afterTomorrow
          .toLocaleString('es-ES', { weekday: 'long', month: 'long' })
          .toLowerCase()
@@ -32,8 +33,8 @@ const daysOfYoga = config.get('daysOfYoga')! as Array<number>;
          hour: config.get('time'),
       };
 
-      const activity = await findActivityMatchingTime(config.get('baseUrl'), cookie, time);
-      if (activity) await book(config.get('bookingUrl'), cookie, activity);
+      const activity = await findActivityMatchingTime(baseUrl, cookie, time);
+      if (activity) await book(bookingUrl, cookie, activity);
       else throw Error('Activity not found!');
    } catch (err) {
       console.log(err);
