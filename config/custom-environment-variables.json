@@ -1,0 +1,7 @@
+{
+   "baseUrl": "BASE_URL",
+   "loginUrl": "LOGIN_URL",
+   "bookingUrl": "BOOKING_URL",
+   "email": "EMAIL",
+   "password": "PASSWORD"
+}
