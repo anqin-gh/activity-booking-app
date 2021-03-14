@@ -1,4 +1,3 @@
-**/node_modules
-*.js
-client
-api
+node_modules
+build
+*.log
