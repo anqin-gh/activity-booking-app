@@ -38,8 +38,11 @@ const daysOfYoga = config.get('daysOfYoga')! as Array<number>;
       };
 
       const activity = await findActivityMatchingTime(baseUrl, cookie, time);
-      if (activity) await book(bookingUrl, cookie, activity);
-      else throw Error('Activity not found!');
+      if (!activity)
+         throw Error(`Activity not found for ${time.day} at ${time.hour}!`);
+
+      await book(bookingUrl, cookie, activity);
+
    } catch (err) {
       logger.error(err.message, err);
    }
