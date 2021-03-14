@@ -21,12 +21,13 @@ const daysOfYoga = config.get('daysOfYoga')! as Array<number>;
       let afterTomorrow = new Date();
       afterTomorrow.setDate(new Date().getDate() + 2);
 
-      const day = afterTomorrow.getDate();
-      if (!daysOfYoga.includes(day)) {
-         logger.info(`Nothing to book for ${daysOfWeek[day]}`);
+      const dayOfWeek = afterTomorrow.getDay();
+      if (!daysOfYoga.includes(dayOfWeek)) {
+         logger.info(`Nothing to book for ${daysOfWeek[dayOfWeek]}`);
          return;
       }
 
+      const day = afterTomorrow.getDate();
       const [month, weekday] = afterTomorrow
          .toLocaleString('es-ES', { weekday: 'long', month: 'long' })
          .toLowerCase()
