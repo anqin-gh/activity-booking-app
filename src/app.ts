@@ -27,7 +27,7 @@ const daysOfYoga = config.get('daysOfYoga')! as Array<number>;
          return;
       }
 
-      const day = afterTomorrow.getDate();
+      const day = ('0' + (afterTomorrow.getDate())).slice(-2);
       const [month, weekday] = afterTomorrow
          .toLocaleString('es-ES', { weekday: 'long', month: 'long' })
          .toLowerCase()
