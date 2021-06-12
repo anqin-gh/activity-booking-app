@@ -8,8 +8,14 @@ const baseUrl: string = config.get('baseUrl');
 const bookingUrl: string = config.get('bookingUrl');
 const email: string = config.get('email');
 const password: string = config.get('password');
-const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednsday', 'thursday', 'friday', 'saturday'];
-const daysOfYoga = config.get('daysOfYoga')! as Array<number>;
+const daysOfWeek: string[] = ['sunday', 'monday', 'tuesday', 'wednsday', 'thursday', 'friday', 'saturday'];
+
+let yogaClasses: Map<String, String> = new Map();
+yogaClasses.set('monday', config.get('mondayClass'));
+yogaClasses.set('tuesday', config.get('tuesdayClass'));
+yogaClasses.set('wednsday', config.get('wednsdayClass'));
+yogaClasses.set('thursday', config.get('thursdayClass'));
+yogaClasses.set('friday', config.get('fridayClass'));
 
 (async function run() {
    try {
@@ -22,7 +28,7 @@ const daysOfYoga = config.get('daysOfYoga')! as Array<number>;
       afterTomorrow.setDate(new Date().getDate() + 2);
 
       const dayOfWeek = afterTomorrow.getDay();
-      if (!daysOfYoga.includes(dayOfWeek)) {
+      if (!yogaClasses.has(daysOfWeek[dayOfWeek])) {
          logger.info(`Nothing to book for ${daysOfWeek[dayOfWeek]}`);
          return;
       }
@@ -34,7 +40,7 @@ const daysOfYoga = config.get('daysOfYoga')! as Array<number>;
          .split(' ');
       const time: Time = {
          day: `${weekday}, ${day} ${month}`,
-         hour: config.get('time'),
+         hour: yogaClasses.get(daysOfWeek[dayOfWeek])! as string,
       };
 
       const activity = await findActivityMatchingTime(baseUrl, cookie, time);

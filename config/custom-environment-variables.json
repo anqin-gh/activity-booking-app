@@ -4,5 +4,9 @@
    "bookingUrl": "BOOKING_URL",
    "email": "EMAIL",
    "password": "PASSWORD",
-   "daysOfYoga": "DAYS_OF_YOGA"
+   "mondayClass": "MONDAY_CLASS",
+   "tuesdayClass": "TUESDAY_CLASS",
+   "wednsdayClass": "WEDNSDAY_CLASS",
+   "thursdayClass": "THURSDAY_CLASS",
+   "fridayClass": "FRIDAY_CLASS"
 }

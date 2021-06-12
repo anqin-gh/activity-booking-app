@@ -3,7 +3,5 @@
    "loginUrl": "https://reservas.yogaone.es/Account/Login",
    "bookingUrl": "https://reservas.yogaone.es/Activities/CreateBooking",
    "email": "pizzicarlos89@gmail.com",
-   "password": "DXhFPE75",
-   "time": "18:15",
-   "daysOfYoga": [1, 3, 5]
+   "password": "DXhFPE75"
 }
