@@ -1,10 +1,11 @@
 {
-  "name": "yoga-booking-app-worker",
+  "name": "activity-booking-app",
   "version": "1.0.0",
   "description": "",
   "main": "./build/app.js",
   "scripts": {
     "tsc": "tsc",
+    "clean": "rm -r node_modules build *.log",
     "build": "tsc",
     "start": "node --icu-data-dir=node_modules/full-icu ./build/app.js",
     "dev": "nodemon"
